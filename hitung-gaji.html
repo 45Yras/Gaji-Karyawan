@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script>
+        function hitungGaji() {
+            let gajiPokok = parseFloat(document.getElementById('gapok').value);
+            let jamLembur = parseFloat(document.getElementById('lembur').value);
+            
+            // Perhitungan Lembur (Rp 20.000/jam) [cite: 43]
+            let totalLembur = jamLembur * 20000;
+            let gajiKotor = gajiPokok + totalLembur;
+            
+            // Logika Pajak [cite: 46, 47, 48]
+            let persenPajak = 0;
+            if (gajiKotor < 5000000) { persenPajak = 0.05; }
+            else if (gajiKotor <= 10000000) { persenPajak = 0.10; }
+            else { persenPajak = 0.15; }
+            
+            let pajak = gajiKotor * persenPajak;
+            let gajiBersih = gajiKotor - pajak;
+
+            // Menampilkan Output [cite: 50]
+            document.getElementById('resGapok').innerHTML = "Gaji Pokok: Rp " + gajiPokok.toLocaleString();
+            document.getElementById('resLembur').innerHTML = "Total Gaji Lembur: Rp " + totalLembur.toLocaleString();
+            document.getElementById('resKotor').innerHTML = "Gaji Kotor: Rp " + gajiKotor.toLocaleString();
+            document.getElementById('resPajak').innerHTML = "Pajak: Rp " + pajak.toLocaleString();
+            document.getElementById('resBersih').innerHTML = "Gaji Bersih: Rp " + gajiBersih.toLocaleString();
+        }
+    </script>
+</head>
+<body style="padding: 20px; font-family: Arial;">
+    <h3>Hitung Gaji Karyawan</h3>
+    <div style="border: 1px solid black; padding: 20px; width: 400px;">
+        <label>Gaji Pokok (Rp): </label><br>
+        <input type="number" id="gapok" style="width: 100%;"><br><br>
+        <label>Jumlah Jam Lembur: </label><br>
+        <input type="number" id="lembur" style="width: 100%;"><br><br>
+        <button onclick="hitungGaji()" class="btn-submit" style="width: 100%;">Hitung Gaji</button>
+        
+        <div style="margin-top: 20px; font-weight: bold;">
+            <p id="resGapok"></p>
+            <p id="resLembur"></p>
+            <p id="resKotor"></p>
+            <p id="resPajak"></p>
+            <p id="resBersih"></p>
+        </div>
+    </div>
+</body>
+</html>
